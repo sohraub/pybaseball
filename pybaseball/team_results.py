@@ -22,6 +22,7 @@ def get_soup(season: Optional[int], team: str) -> BeautifulSoup:
     url = "http://www.baseball-reference.com/teams/{}/{}-schedule-scores.shtml".format(team, season)
     print(url)
     s = session.get(url).content
+    print("sleepy time!")
     sleep(3)
     return BeautifulSoup(s, "lxml")
 
