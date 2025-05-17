@@ -24,10 +24,13 @@ def get_soup(season: Optional[int], team: str) -> BeautifulSoup:
     s = session.get(url).content
     print("sleepy time!")
     sleep(3)
+    print(s)
     return BeautifulSoup(s, "lxml")
 
 def get_table(soup: BeautifulSoup, team: str) -> pd.DataFrame:
     try:
+        sleep(5)
+        print("more sleep!!")
         table = soup.find_all('table')[0]
     except:
         raise ValueError("Data cannot be retrieved for this team/year combo. Please verify that your team abbreviation is accurate and that the team existed during the season you are searching for.")
