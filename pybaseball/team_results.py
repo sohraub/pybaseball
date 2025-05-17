@@ -24,8 +24,9 @@ def get_soup(season: Optional[int], team: str) -> BeautifulSoup:
     s = session.get(url).content
     print("sleepy time!")
     sleep(3)
-    print(s)
-    return BeautifulSoup(s, "lxml")
+    soup = BeautifulSoup(s, 'lxml')
+    print(soup.prettify())
+    return soup
 
 def get_table(soup: BeautifulSoup, team: str) -> pd.DataFrame:
     try:
