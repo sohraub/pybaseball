@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Optional
+from time import sleep
 
 from bs4 import BeautifulSoup
 import numpy as np
@@ -21,6 +22,7 @@ def get_soup(season: Optional[int], team: str) -> BeautifulSoup:
     url = "http://www.baseball-reference.com/teams/{}/{}-schedule-scores.shtml".format(team, season)
     print(url)
     s = session.get(url).content
+    sleep(3)
     return BeautifulSoup(s, "lxml")
 
 def get_table(soup: BeautifulSoup, team: str) -> pd.DataFrame:
