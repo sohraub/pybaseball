@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 
 from pybaseball.utils import get_first_season, most_recent_season
+from requests_html import HTMLSession
 
 from . import cache
 from .datasources.bref import BRefSession
@@ -132,9 +133,16 @@ def schedule_and_record(season: int, team: str) -> pd.DataFrame:
         pass
     if season > datetime.now().year:
         raise ValueError('Season cannot be after current year')
-
-    soup = get_soup(season, team)
+    url = "http://www.baseball-reference.com/teams/{}/{}-schedule-scores.shtml".format(team, season)
+    #soup = get_soup(season, team)
+    soup = render_JS(url)
     table = get_table(soup, team)
     table = process_win_streak(table)
     table = make_numeric(table)
     return table
+
+def render_JS(URL):
+    session = HTMLSession()
+    r = session.get(URL)
+    r.html.render()
+    return r.html.text
