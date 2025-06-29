@@ -142,7 +142,10 @@ def schedule_and_record(season: int, team: str) -> pd.DataFrame:
     return table
 
 def render_JS(URL):
+    print("Trying requests.html....")
     session = HTMLSession()
     r = session.get(URL)
     r.html.render()
-    return r.html.text
+    results = r.html.text
+    print(results)
+    return results
